@@ -4,8 +4,10 @@ ENV NODE_ENV=production
 
 WORKDIR /usr/local/app
 
-COPY ./* .
+COPY ./ ./
 
 RUN npm install --production
+
+RUN npm run build
 
 CMD npm run start
