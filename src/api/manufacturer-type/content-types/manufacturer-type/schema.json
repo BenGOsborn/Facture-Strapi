@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "manufacturer_types",
+  "info": {
+    "singularName": "manufacturer-type",
+    "pluralName": "manufacturer-types",
+    "displayName": "ManufacturerType",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "type": {
+      "type": "uid",
+      "required": true
+    },
+    "manufacturers": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::manufacturer.manufacturer",
+      "inversedBy": "manufacturer_types"
+    }
+  }
+}

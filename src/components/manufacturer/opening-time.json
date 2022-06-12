@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_opening_opening_times",
+  "info": {
+    "displayName": "OpeningTime",
+    "icon": "calendar-alt",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "day": {
+      "type": "integer",
+      "max": 0,
+      "min": 6,
+      "required": true
+    },
+    "openTime": {
+      "type": "time",
+      "required": true
+    },
+    "closeTime": {
+      "type": "time",
+      "required": true
+    }
+  }
+}

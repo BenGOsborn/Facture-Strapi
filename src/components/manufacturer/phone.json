@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_manufacturer_phones",
+  "info": {
+    "displayName": "Phone",
+    "icon": "phone",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "phoneNo": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

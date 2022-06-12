@@ -1,0 +1,79 @@
+{
+  "kind": "collectionType",
+  "collectionName": "manufacturers",
+  "info": {
+    "singularName": "manufacturer",
+    "pluralName": "manufacturers",
+    "displayName": "Manufacturer",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "descriptionShort": {
+      "type": "text"
+    },
+    "descriptionLong": {
+      "type": "richtext"
+    },
+    "dateEstablished": {
+      "type": "date"
+    },
+    "thumbnail": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "display": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "manufacturer_types": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::manufacturer-type.manufacturer-type",
+      "mappedBy": "manufacturers"
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "location": {
+      "type": "component",
+      "repeatable": true,
+      "component": "manufacturer.location"
+    },
+    "openingTime": {
+      "type": "component",
+      "repeatable": true,
+      "component": "manufacturer.opening-time"
+    },
+    "email": {
+      "type": "component",
+      "repeatable": true,
+      "component": "manufacturer.email"
+    },
+    "phoneNo": {
+      "type": "component",
+      "repeatable": true,
+      "component": "manufacturer.phone"
+    }
+  }
+}
