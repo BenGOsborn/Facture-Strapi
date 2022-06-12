@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_manufacturer_types",
+  "info": {
+    "displayName": "Type",
+    "icon": "hand-pointer"
+  },
+  "options": {},
+  "attributes": {
+    "type": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

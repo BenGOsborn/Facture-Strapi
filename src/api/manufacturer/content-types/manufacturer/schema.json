@@ -43,12 +43,6 @@
         "images"
       ]
     },
-    "manufacturer_types": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::manufacturer-type.manufacturer-type",
-      "mappedBy": "manufacturers"
-    },
     "logo": {
       "type": "media",
       "multiple": false,
@@ -81,6 +75,11 @@
       "type": "component",
       "repeatable": true,
       "component": "manufacturer.social"
+    },
+    "type": {
+      "type": "component",
+      "repeatable": true,
+      "component": "manufacturer.type"
     }
   }
 }
