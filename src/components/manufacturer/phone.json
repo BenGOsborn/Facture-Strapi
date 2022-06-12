@@ -10,6 +10,10 @@
     "phoneNo": {
       "type": "string",
       "required": true
+    },
+    "label": {
+      "type": "string",
+      "required": true
     }
   }
 }

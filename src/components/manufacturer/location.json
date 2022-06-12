@@ -2,19 +2,24 @@
   "collectionName": "components_manufacturer_locations",
   "info": {
     "displayName": "Location",
-    "icon": "globe-asia"
+    "icon": "globe-asia",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "latitude": {
-      "type": "decimal",
+      "type": "float",
       "required": true
     },
     "longitude": {
-      "type": "decimal",
+      "type": "float",
       "required": true
     },
     "address": {
+      "type": "string",
+      "required": true
+    },
+    "label": {
       "type": "string",
       "required": true
     }

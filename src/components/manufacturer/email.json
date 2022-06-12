@@ -2,12 +2,17 @@
   "collectionName": "components_manufacturer_emails",
   "info": {
     "displayName": "Email",
-    "icon": "mail-bulk"
+    "icon": "mail-bulk",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "email": {
       "type": "email",
+      "required": true
+    },
+    "label": {
+      "type": "string",
       "required": true
     }
   }
