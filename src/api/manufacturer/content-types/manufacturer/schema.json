@@ -17,10 +17,12 @@
       "required": true
     },
     "descriptionShort": {
-      "type": "text"
+      "type": "text",
+      "required": true
     },
     "descriptionLong": {
-      "type": "richtext"
+      "type": "richtext",
+      "required": true
     },
     "dateEstablished": {
       "type": "date"
@@ -50,7 +52,7 @@
     "logo": {
       "type": "media",
       "multiple": false,
-      "required": false,
+      "required": true,
       "allowedTypes": [
         "images"
       ]
@@ -74,6 +76,11 @@
       "type": "component",
       "repeatable": true,
       "component": "manufacturer.phone"
+    },
+    "social": {
+      "type": "component",
+      "repeatable": true,
+      "component": "manufacturer.social"
     }
   }
 }

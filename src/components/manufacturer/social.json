@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_manufacturer_socials",
+  "info": {
+    "displayName": "Social",
+    "icon": "address-book"
+  },
+  "options": {},
+  "attributes": {
+    "platform": {
+      "type": "enumeration",
+      "enum": [
+        "website",
+        "facebook",
+        "twitter",
+        "linkedin",
+        "instagram",
+        "youtube",
+        "tiktok",
+        "whatsapp",
+        "snapchat",
+        "pinterest",
+        "reddit"
+      ]
+    },
+    "link": {
+      "type": "string",
+      "required": true
+    }
+  }
+}
