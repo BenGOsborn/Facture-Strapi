@@ -80,6 +80,41 @@
       "type": "component",
       "repeatable": true,
       "component": "manufacturer.type"
+    },
+    "manufacturer": {
+      "type": "uid",
+      "required": true
+    },
+    "color": {
+      "type": "enumeration",
+      "enum": [
+        "slate",
+        "gray",
+        "zinc",
+        "neutral",
+        "stone",
+        "red",
+        "orange",
+        "amber",
+        "yellow",
+        "lime",
+        "green",
+        "emerald",
+        "teal",
+        "cyan",
+        "sky",
+        "blue",
+        "indigo",
+        "violet",
+        "purple",
+        "fuchsia",
+        "pink",
+        "rose"
+      ],
+      "required": true
+    },
+    "slogan": {
+      "type": "string"
     }
   }
 }
