@@ -1,23 +1,55 @@
+const AWS = require("aws-sdk");
+
 module.exports = {
-  init(providerOptions) {
-    // init your provider if necessary
-    console.log("Initializing", providerOptions);
+  init(config) {
+    const S3 = new AWS.S3({
+      apiVersion: "2006-03-01",
+      ...config,
+    });
+
+    const upload = (file, customParams = {}) =>
+      new Promise((resolve, reject) => {
+        const path = file.path ? `${file.path}/` : "";
+        S3.upload(
+          {
+            Key: `${path}${file.hash}${file.ext}`,
+            Body: file.stream || Buffer.from(file.buffer, "binary"),
+            ContentType: file.mime,
+            ...customParams,
+          },
+          (err, data) => {
+            if (err) {
+              return reject(err);
+            }
+
+            file.url = data.Location;
+
+            resolve();
+          }
+        );
+      });
 
     return {
-      upload(file) {
-        console.log("Uploading...");
-
-        // upload the file in the provider
-        // file content is accessible by `file.buffer`
+      uploadStream(file, customParams = {}) {
+        return upload(file, customParams);
       },
-      uploadStream(file) {
-        // upload the file in the provider
-        // file content is accessible by `file.stream`
-      },
-      delete(file) {
-        console.log("Deleting...");
 
-        // delete the file in the provider
+      upload(file, customParams = {}) {
+        return upload(file, customParams);
+      },
+
+      delete(file, customParams = {}) {
+        return new Promise((resolve, reject) => {
+          const path = file.path ? `${file.path}/` : "";
+
+          S3.deleteObject(
+            { Key: `${path}${file.hash}${file.ext}`, ...customParams },
+            (err, data) => {
+              if (err) return reject(err);
+              resolve();
+            }
+          );
+        });
       },
     };
   },
