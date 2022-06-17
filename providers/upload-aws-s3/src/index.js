@@ -6,7 +6,7 @@ module.exports = {
       upload(file) {
         // upload the file in the provider
         // file content is accessible by `file.buffer`
-        console.log(file);
+        console.log(file, providerOptions);
       },
       uploadStream(file) {
         // upload the file in the provider
