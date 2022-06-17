@@ -7,49 +7,51 @@ module.exports = {
       ...config,
     });
 
-    const upload = (file, customParams = {}) =>
+    const uploadFile = (file, customParams = {}) =>
       new Promise((resolve, reject) => {
         const path = file.path ? `${file.path}/` : "";
+        const key = `${path}${file.hash}${file.ext}`;
+        const body = file.stream || Buffer.from(file.buffer, "binary");
+
         S3.upload(
           {
-            Key: `${path}${file.hash}${file.ext}`,
-            Body: file.stream || Buffer.from(file.buffer, "binary"),
+            Key: key,
+            Body: body,
             ContentType: file.mime,
             ...customParams,
           },
           (err, data) => {
-            if (err) {
-              return reject(err);
-            }
+            if (err) return reject(err);
 
             file.url = data.Location;
-
             resolve();
           }
         );
       });
 
+    const deleteFile = (file, customParams = {}) =>
+      new Promise((resolve, reject) => {
+        const path = file.path ? `${file.path}/` : "";
+        const key = `${path}${file.hash}${file.ext}`;
+
+        S3.deleteObject({ Key: key, ...customParams }, (err, data) => {
+          if (err) return reject(err);
+
+          resolve();
+        });
+      });
+
     return {
       uploadStream(file, customParams = {}) {
-        return upload(file, customParams);
+        return uploadFile(file, customParams);
       },
 
       upload(file, customParams = {}) {
-        return upload(file, customParams);
+        return uploadFile(file, customParams);
       },
 
       delete(file, customParams = {}) {
-        return new Promise((resolve, reject) => {
-          const path = file.path ? `${file.path}/` : "";
-
-          S3.deleteObject(
-            { Key: `${path}${file.hash}${file.ext}`, ...customParams },
-            (err, data) => {
-              if (err) return reject(err);
-              resolve();
-            }
-          );
-        });
+        return deleteFile(file, customParams);
       },
     };
   },
