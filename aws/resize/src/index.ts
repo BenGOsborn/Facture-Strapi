@@ -40,13 +40,6 @@ export const handler = async (event: APIGatewayEvent) => {
     } catch {
         const split = size.split("x");
 
-        return await handleResize(
-            fileName,
-            resizedKey,
-            { width: parseInt(split[0]), height: parseInt(split[1]) },
-            COLD_BUCKET,
-            RESIZED_BUCKET,
-            S3
-        );
+        return await handleResize(fileName, resizedKey, { width: parseInt(split[0]), height: parseInt(split[1]) }, COLD_BUCKET, RESIZED_BUCKET, S3);
     }
 };

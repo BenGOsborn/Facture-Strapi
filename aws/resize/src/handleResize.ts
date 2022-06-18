@@ -5,14 +5,7 @@ import sharp from "sharp";
 
 import { getExtension } from "./misc";
 
-export default async (
-    fileName: string,
-    key: string,
-    dimensions: { width: number; height: number },
-    coldBucket: string,
-    resizedBucket: string,
-    S3: AWS.S3
-) => {
+export default async (fileName: string, key: string, dimensions: { width: number; height: number }, coldBucket: string, resizedBucket: string, S3: AWS.S3) => {
     const fileExtension = getExtension(fileName);
 
     const uploaded = await S3.getObject({

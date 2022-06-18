@@ -1,4 +1,4 @@
-import { APIGatewayEvent } from "aws-lambda";
+import { APIGatewayEvent, APIGatewayProxyResult } from "aws-lambda";
 import AWS from "aws-sdk";
 
 import handleNoSize from "./handleNoSize";
@@ -19,7 +19,7 @@ if (process.env.ALLOWED_DIMENSIONS) {
     dimensions.forEach((dimension) => ALLOWED_DIMENSIONS.add(dimension));
 }
 
-export const handler = async (event: APIGatewayEvent) => {
+export const handler = async (event: APIGatewayEvent): Promise<APIGatewayProxyResult> => {
     const fileName = event.pathParameters?.file;
     const size = event.queryStringParameters?.size;
 
@@ -28,7 +28,7 @@ export const handler = async (event: APIGatewayEvent) => {
 
     if (ALLOWED_DIMENSIONS.size > 0 && !ALLOWED_DIMENSIONS.has(size))
         return {
-            statusCode: "403",
+            statusCode: 403,
             headers: {},
             body: "",
         };
@@ -40,13 +40,6 @@ export const handler = async (event: APIGatewayEvent) => {
     } catch {
         const split = size.split("x");
 
-        return await handleResize(
-            fileName,
-            resizedKey,
-            { width: parseInt(split[0]), height: parseInt(split[1]) },
-            COLD_BUCKET,
-            RESIZED_BUCKET,
-            S3
-        );
+        return await handleResize(fileName, resizedKey, { width: parseInt(split[0]), height: parseInt(split[1]) }, COLD_BUCKET, RESIZED_BUCKET, S3);
     }
 };

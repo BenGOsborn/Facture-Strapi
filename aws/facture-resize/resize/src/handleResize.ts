@@ -1,5 +1,6 @@
 // Resize an image from the bucket and then upload it
 
+import { APIGatewayProxyResult } from "aws-lambda";
 import AWS from "aws-sdk";
 import sharp from "sharp";
 
@@ -12,7 +13,7 @@ export default async (
     coldBucket: string,
     resizedBucket: string,
     S3: AWS.S3
-) => {
+): Promise<APIGatewayProxyResult> => {
     const fileExtension = getExtension(fileName);
 
     const uploaded = await S3.getObject({
