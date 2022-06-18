@@ -16,7 +16,7 @@
     "@strapi/plugin-i18n": "4.1.12",
     "@strapi/plugin-users-permissions": "4.1.12",
     "@strapi/provider-upload-aws-s3": "file:providers/upload-aws-s3",
-    "@strapi/strapi": "4.1.12",
+    "@strapi/strapi": "4.2.0",
     "aws-sdk": "^2.1157.0",
     "pg": "^8.7.3"
   },
