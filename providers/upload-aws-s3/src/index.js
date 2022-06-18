@@ -1,60 +1,60 @@
 const AWS = require("aws-sdk");
 
 module.exports = {
-  init(config) {
-    const S3 = new AWS.S3({
-      apiVersion: "2006-03-01",
-      ...config,
-    });
-
-    const uploadFile = (file, customParams = {}) =>
-      new Promise((resolve, reject) => {
-        const path = file.path ? `${file.path}/` : "";
-        const key = `${path}${file.hash}${file.ext}`;
-        const body = file.stream || Buffer.from(file.buffer, "binary");
-
-        // **** Add the new request parameter in here once the image optimization has been set up
-
-        S3.upload(
-          {
-            Key: key,
-            Body: body,
-            ContentType: file.mime,
-            ...customParams,
-          },
-          (err, data) => {
-            if (err) return reject(err);
-
-            file.url = data.Location;
-            resolve();
-          }
-        );
-      });
-
-    const deleteFile = (file, customParams = {}) =>
-      new Promise((resolve, reject) => {
-        const path = file.path ? `${file.path}/` : "";
-        const key = `${path}${file.hash}${file.ext}`;
-
-        S3.deleteObject({ Key: key, ...customParams }, (err, data) => {
-          if (err) return reject(err);
-
-          resolve();
+    init(config) {
+        const S3 = new AWS.S3({
+            apiVersion: "2006-03-01",
+            ...config,
         });
-      });
 
-    return {
-      uploadStream(file, customParams = {}) {
-        return uploadFile(file, customParams);
-      },
+        const uploadFile = (file, customParams = {}) =>
+            new Promise((resolve, reject) => {
+                const path = file.path ? `${file.path}/` : "";
+                const key = `${path}${file.hash}${file.ext}`;
+                const body = file.stream || Buffer.from(file.buffer, "binary");
 
-      upload(file, customParams = {}) {
-        return uploadFile(file, customParams);
-      },
+                // **** Add the new request parameter in here once the image optimization has been set up
 
-      delete(file, customParams = {}) {
-        return deleteFile(file, customParams);
-      },
-    };
-  },
+                S3.upload(
+                    {
+                        Key: key,
+                        Body: body,
+                        ContentType: file.mime,
+                        ...customParams,
+                    },
+                    (err, data) => {
+                        if (err) return reject(err);
+
+                        file.url = data.Location;
+                        resolve();
+                    }
+                );
+            });
+
+        const deleteFile = (file, customParams = {}) =>
+            new Promise((resolve, reject) => {
+                const path = file.path ? `${file.path}/` : "";
+                const key = `${path}${file.hash}${file.ext}`;
+
+                S3.deleteObject({ Key: key, ...customParams }, (err, data) => {
+                    if (err) return reject(err);
+
+                    resolve();
+                });
+            });
+
+        return {
+            uploadStream(file, customParams = {}) {
+                return uploadFile(file, customParams);
+            },
+
+            upload(file, customParams = {}) {
+                return uploadFile(file, customParams);
+            },
+
+            delete(file, customParams = {}) {
+                return deleteFile(file, customParams);
+            },
+        };
+    },
 };
