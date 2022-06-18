@@ -1,8 +1,8 @@
-const AWS = require("aws-sdk");
+import AWS from "aws-sdk";
 
-const handleNoSize = require("./handleNoSize");
-const handleResize = require("./handleResize");
-const handleResized = require("./handleResized");
+import handleNoSize from "./handleNoSize";
+import handleResize from "./handleResize";
+import handleResized from "./handleResized";
 
 const S3 = new AWS.S3({
     apiVersion: "2006-03-01",
@@ -18,7 +18,7 @@ if (process.env.ALLOWED_DIMENSIONS) {
     dimensions.forEach((dimension) => ALLOWED_DIMENSIONS.add(dimension));
 }
 
-exports.handler = async (event) => {
+export const handler = async (event) => {
     const fileName = event.pathParameters.file;
     const size = event.queryStringParameters.size;
 
