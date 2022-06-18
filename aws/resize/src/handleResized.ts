@@ -2,7 +2,11 @@
 
 import AWS from "aws-sdk";
 
+import { getExtension } from "./misc";
+
 export default async (key: string, resizedBucket: string, S3: AWS.S3) => {
+    const fileExtension = getExtension(key);
+
     const uploaded = await S3.getObject({
         Bucket: resizedBucket,
         Key: key,
@@ -11,7 +15,7 @@ export default async (key: string, resizedBucket: string, S3: AWS.S3) => {
     return {
         statusCode: 200,
         headers: {
-            "Content-Type": "application/jpg",
+            "Content-Type": "application/" + fileExtension,
             "Content-Disposition": `attachment; filename=${key}`,
         },
         body: uploaded.Body?.toString("base64"),

@@ -2,9 +2,10 @@
 
 import AWS from "aws-sdk";
 
+import { getExtension } from "./misc";
+
 export default async (fileName: string, coldBucket: string, S3: AWS.S3) => {
-    const fileSplit = fileName.split(".");
-    const fileExtension = fileSplit[fileSplit.length - 1];
+    const fileExtension = getExtension(fileName);
 
     const uploaded = await S3.getObject({
         Bucket: coldBucket,

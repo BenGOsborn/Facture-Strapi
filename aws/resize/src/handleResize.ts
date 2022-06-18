@@ -3,6 +3,8 @@
 import AWS from "aws-sdk";
 import sharp from "sharp";
 
+import { getExtension } from "./misc";
+
 export default async (
     fileName: string,
     key: string,
@@ -11,6 +13,8 @@ export default async (
     resizedBucket: string,
     S3: AWS.S3
 ) => {
+    const fileExtension = getExtension(fileName);
+
     const uploaded = await S3.getObject({
         Bucket: coldBucket,
         Key: fileName,
@@ -18,7 +22,6 @@ export default async (
 
     const image = await sharp(uploaded.Body as Buffer)
         .resize(dimensions.width, dimensions.height)
-        .toFormat("jpg")
         .toBuffer();
 
     await S3.upload({
@@ -30,7 +33,7 @@ export default async (
     return {
         statusCode: 200,
         headers: {
-            "Content-Type": "application/jpg",
+            "Content-Type": "application/" + fileExtension,
             "Content-Disposition": `attachment; filename=${key}`,
         },
         body: image.toString("base64"),
