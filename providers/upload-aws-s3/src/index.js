@@ -3,7 +3,7 @@ const AWS = require("aws-sdk");
 module.exports = {
   init(config) {
     const S3 = new AWS.S3({
-      apiVersion: "2006-03-01",
+      signatureVersion: "v4",
       ...config,
     });
 
@@ -12,6 +12,9 @@ module.exports = {
         const path = file.path ? `${file.path}/` : "";
         const key = `${path}${file.hash}${file.ext}`;
         const body = file.stream || Buffer.from(file.buffer, "binary");
+
+        // **** I want to add a link to the CDN which will get this image from the cache and then return it to me if it does not exist ?
+        console.log(file);
 
         S3.upload(
           {
