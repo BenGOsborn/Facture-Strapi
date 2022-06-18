@@ -10,3 +10,11 @@ Resources:
             Runtime: nodejs16.x
             Architectures:
                 - x86_64
+        Metadata: # Manage esbuild properties
+            BuildMethod: esbuild
+            BuildProperties:
+                Minify: true
+                Target: "es2020"
+                Sourcemap: true
+                EntryPoints:
+                    - src/index.ts
