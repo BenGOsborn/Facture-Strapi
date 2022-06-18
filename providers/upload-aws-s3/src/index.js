@@ -13,8 +13,6 @@ module.exports = {
                 const key = `${path}${file.hash}${file.ext}`;
                 const body = file.stream || Buffer.from(file.buffer, "binary");
 
-                // **** Add the new request parameter in here once the image optimization has been set up
-
                 S3.upload(
                     {
                         Key: key,
@@ -25,7 +23,7 @@ module.exports = {
                     (err, data) => {
                         if (err) return reject(err);
 
-                        file.url = data.Location;
+                        file.url = config.imageLocation + data.Key;
                         resolve();
                     }
                 );

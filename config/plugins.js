@@ -9,6 +9,7 @@ module.exports = ({ env }) => ({
                 params: {
                     Bucket: env("AWS_BUCKET_NAME"),
                 },
+                imageLocation: env("AWS_IMAGE_LOCATION"),
             },
         },
     },
