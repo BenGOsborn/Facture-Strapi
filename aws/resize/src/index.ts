@@ -42,7 +42,7 @@ exports.handler = async (event) => {
         return handleResize(
             fileName,
             resizedKey,
-            { width: split[0], height: split[1] },
+            { width: parseInt(split[0]), height: parseInt(split[1]) },
             COLD_BUCKET,
             RESIZED_BUCKET,
             S3

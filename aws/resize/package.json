@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
-    "@types/sharp": "^0.30.4",
     "aws-sdk": "^2.1157.0",
     "sharp": "^0.30.6"
+  },
+  "devDependencies": {
+    "@types/sharp": "^0.30.4"
   }
 }

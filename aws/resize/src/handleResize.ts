@@ -1,5 +1,6 @@
 // Resize an image from the bucket and then upload it
 
+import AWS from "aws-sdk";
 import sharp from "sharp";
 
 export default async (
@@ -15,15 +16,14 @@ export default async (
         Key: fileName,
     }).promise();
 
-    const image = await sharp(Buffer.from(uploaded.Body?.toString() as string))
+    const image = sharp(Buffer.from(uploaded.Body?.toString() as string))
         .resize(dimensions.width, dimensions.height)
         .toFormat("jpg")
         .toBuffer();
 
-    S3.putObject({
+    S3.upload({
         Body: image,
         Bucket: resizedBucket,
-        ContentType: "image/jpg",
         Key: key,
     }).promise();
 
