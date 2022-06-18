@@ -1,11 +1,11 @@
 // Return an unresized image from the bucket
 
-export default async (fileName: string, bucket: string, S3: AWS.S3) => {
+export default async (fileName: string, coldBucket: string, S3: AWS.S3) => {
     const fileSplit = fileName.split(".");
     const fileExtension = fileSplit[fileSplit.length - 1];
 
     const uploaded = await S3.getObject({
-        Bucket: bucket,
+        Bucket: coldBucket,
         Key: fileName,
     }).promise();
 
