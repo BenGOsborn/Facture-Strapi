@@ -21,3 +21,4 @@ Resources:
                 External:
                     - "aws-sdk"
                     - "sharp"
+                    - "aws-lambda"
