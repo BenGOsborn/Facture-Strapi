@@ -13,8 +13,7 @@ module.exports = {
         const key = `${path}${file.hash}${file.ext}`;
         const body = file.stream || Buffer.from(file.buffer, "binary");
 
-        // **** I want to add a link to the CDN which will get this image from the cache and then return it to me if it does not exist ?
-        console.log(file);
+        // **** Add the new request parameter in here once the image optimization has been set up
 
         S3.upload(
           {
