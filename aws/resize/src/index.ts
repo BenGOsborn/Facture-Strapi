@@ -1,6 +1,7 @@
 import AWS from "aws-sdk";
 
 import handleNoSize from "./handleNoSize";
+import handleResize from "./handleResize";
 import handleResized from "./handleResized";
 
 const S3 = new AWS.S3({
@@ -11,7 +12,7 @@ const COLD_BUCKET = process.env.COLD_BUCKET as string;
 const RESIZED_BUCKET = process.env.RESIZED_BUCKET as string;
 const ALLOWED_DIMENSIONS = new Set();
 
-// Allowed dimensions format: "16x16,28x28"
+// Allowed dimensions format: "wxh,16x16,28x28"
 if (process.env.ALLOWED_DIMENSIONS) {
     const dimensions = process.env.ALLOWED_DIMENSIONS.split(/\s*,\s*/);
     dimensions.forEach((dimension) => ALLOWED_DIMENSIONS.add(dimension));
@@ -37,41 +38,14 @@ exports.handler = async (event) => {
         return handleResized(resizedKey, RESIZED_BUCKET, S3);
     } catch {
         const split = size.split("x");
-        const width = split[0];
-        const height = split[1];
 
-        // Check if the image matches in the bucket
-        const uploaded = await S3.getObject({
-            Bucket: COLD_BUCKET,
-            Key: fileName,
-        }).promise();
+        return handleResize(
+            fileName,
+            resizedKey,
+            { width: split[0], height: split[1] },
+            COLD_BUCKET,
+            RESIZED_BUCKET,
+            S3
+        );
     }
-
-    Sharp(data.Body)
-        .resize(width, height)
-        .toFormat("png")
-        .toBuffer()
-
-        .then((buffer) =>
-            S3.putObject({
-                Body: buffer,
-                Bucket: BUCKET,
-                ContentType: "image/png",
-                Key: key,
-            }).promise()
-        )
-        .then(() =>
-            callback(null, {
-                statusCode: "301",
-                headers: { location: `${URL}/${key}` },
-                body: "",
-            })
-        )
-        .catch((err) => callback(err));
-
-    return {
-        statusCode: 200,
-        body: JSON.stringify("Hello from Lambda!"),
-        isBase64Encoded: true,
-    };
 };

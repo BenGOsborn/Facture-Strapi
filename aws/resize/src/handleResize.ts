@@ -1,10 +1,13 @@
 // Resize an image from the bucket and then upload it
 
+import sharp from "sharp";
+
 export default async (
     fileName: string,
     key: string,
     dimensions: { width: number; height: number },
     coldBucket: string,
+    resizedBucket: string,
     S3: AWS.S3
 ) => {
     const uploaded = await S3.getObject({
@@ -12,17 +15,17 @@ export default async (
         Key: fileName,
     }).promise();
 
-    // **** Now we need to manually resize this image
+    const image = await sharp(Buffer.from(uploaded.Body?.toString() as string))
+        .resize(dimensions.width, dimensions.height)
+        .toFormat("jpg")
+        .toBuffer();
 
-    const image = Sharp(uploaded.Body?.toString("binary")); //.resize(dimensions.width, dimensions.he) .toFormat("png") .toBuffer()
-
-        .then((buffer) =>
-            S3.putObject({
-                Body: buffer,
-                Bucket: BUCKET,
-                ContentType: "image/png",
-                Key: key,
-            }).promise()
+    S3.putObject({
+        Body: image,
+        Bucket: resizedBucket,
+        ContentType: "image/jpg",
+        Key: key,
+    }).promise();
 
     return {
         statusCode: 200,
