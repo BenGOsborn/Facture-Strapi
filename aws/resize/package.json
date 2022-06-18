@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
-        "build": "tsc && zip lambda.zip dist/* package.json"
+        "build": "tsc && zip lambda.zip dist/* package.json -j"
     },
     "dependencies": {
         "aws-lambda": "^1.0.7",
