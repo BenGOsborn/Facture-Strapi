@@ -4,6 +4,9 @@ module.exports = async (fileName, coldBucket, S3) => {
     const fileSplit = fileName.split(".");
     const fileExtension = fileSplit[fileSplit.length - 1];
 
+    console.log("Doing it here ???");
+    console.log(coldBucket, fileName);
+
     const uploaded = await S3.getObject({
         Bucket: coldBucket,
         Key: fileName,
