@@ -16,12 +16,12 @@ export default async (
         Key: fileName,
     }).promise();
 
-    const image = sharp(Buffer.from(uploaded.Body?.toString() as string))
+    const image = await sharp(uploaded.Body as Buffer)
         .resize(dimensions.width, dimensions.height)
         .toFormat("jpg")
         .toBuffer();
 
-    S3.upload({
+    await S3.upload({
         Body: image,
         Bucket: resizedBucket,
         Key: key,
@@ -33,7 +33,7 @@ export default async (
             "Content-Type": "application/jpg",
             "Content-Disposition": `attachment; filename=${key}`,
         },
-        body: uploaded.Body?.toString("base64"),
+        body: image.toString("base64"),
         isBase64Encoded: true,
     };
 };
