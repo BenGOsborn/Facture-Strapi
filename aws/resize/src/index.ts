@@ -1,4 +1,5 @@
 import AWS from "aws-sdk";
+import { APIGatewayEvent } from "aws-lambda";
 
 import handleNoSize from "./handleNoSize";
 import handleResize from "./handleResize";
@@ -18,11 +19,11 @@ if (process.env.ALLOWED_DIMENSIONS) {
     dimensions.forEach((dimension) => ALLOWED_DIMENSIONS.add(dimension));
 }
 
-exports.handler = async (event) => {
-    const fileName = event.pathParameters.file as string;
-    const size = event.queryStringParameters.size as string | undefined;
+exports.handler = async (event: APIGatewayEvent) => {
+    const fileName = event.pathParameters?.file;
+    const size = event.queryStringParameters?.size;
 
-    // If there is no size defined return image from the cold bucket
+    if (!fileName) throw Error("No file name provided");
     if (!size) return handleNoSize(fileName, COLD_BUCKET, S3);
 
     if (ALLOWED_DIMENSIONS.size > 0 && !ALLOWED_DIMENSIONS.has(size))
