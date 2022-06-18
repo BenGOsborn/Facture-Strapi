@@ -2,7 +2,7 @@
     "name": "resize",
     "version": "1.0.0",
     "scripts": {
-        "build": "tsc && zip -r lambda.zip package.json dist/* node_modules/"
+        "build": "tsc && rm lambda.zip && zip -r lambda.zip package.json dist/* node_modules/"
     },
     "dependencies": {
         "aws-lambda": "^1.0.7",

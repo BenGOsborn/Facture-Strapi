@@ -36,8 +36,12 @@ export const handler = async (event: APIGatewayEvent) => {
     const resizedKey = size + "." + fileName;
 
     try {
+        console.log("Error occurs in the handleResized");
+
         return handleResized(resizedKey, RESIZED_BUCKET, S3);
     } catch {
+        console.log("Error occurs in the handleResize");
+
         const split = size.split("x");
 
         return handleResize(
