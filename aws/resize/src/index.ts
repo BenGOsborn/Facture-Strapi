@@ -1,5 +1,7 @@
 import AWS from "aws-sdk";
-import Sharp from "sharp";
+
+import handleNoSize from "./handleNoSize";
+import handleResized from "./handleResized";
 
 const S3 = new AWS.S3({
     apiVersion: "2006-03-01",
@@ -16,14 +18,11 @@ if (process.env.ALLOWED_DIMENSIONS) {
 }
 
 exports.handler = async (event) => {
-    const fileName = event.pathParameters.file;
-    const size = event.queryStringParameters.size;
+    const fileName = event.pathParameters.file as string;
+    const size = event.queryStringParameters.size as string | undefined;
 
-    const split = size.split("x");
-    const width = split[0];
-    const height = split[1];
-
-    // **** We should also have some sort of override if there is no size parameter attached to the request - otherwise we will use it for everything
+    // If there is no size defined return image from the cold bucket
+    if (!size) return handleNoSize(fileName, COLD_BUCKET, S3);
 
     if (ALLOWED_DIMENSIONS.size > 0 && !ALLOWED_DIMENSIONS.has(size))
         return {
@@ -32,41 +31,20 @@ exports.handler = async (event) => {
             body: "",
         };
 
-    let obj: any = null;
-
-    // Try and find the file
     const resizedKey = size + "." + fileName;
 
     try {
-        try {
-            // Search the resized bucket for the file
-            const uploaded = await S3.getObject({
-                Bucket: RESIZED_BUCKET,
-                Key: resizedKey,
-            }).promise();
-
-            return {
-                statusCode: 200,
-                headers: {
-                    "Content-Type": "application/jpg",
-                    "Content-Disposition": `attachment; filename=${resizedKey}`,
-                },
-                body: uploaded.Body?.toString("base64"),
-                isBase64Encoded: true,
-            };
-        } catch {
-            // Check if the image matches in the bucket
-            const uploaded = await S3.getObject({
-                Bucket: COLD_BUCKET,
-                Key: fileName,
-            }).promise();
-        }
+        return handleResized(resizedKey, RESIZED_BUCKET, S3);
     } catch {
-        return {
-            statusCode: "404",
-            headers: {},
-            body: "",
-        };
+        const split = size.split("x");
+        const width = split[0];
+        const height = split[1];
+
+        // Check if the image matches in the bucket
+        const uploaded = await S3.getObject({
+            Bucket: COLD_BUCKET,
+            Key: fileName,
+        }).promise();
     }
 
     Sharp(data.Body)
