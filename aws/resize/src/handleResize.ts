@@ -1,21 +1,22 @@
 // Resize an image from the bucket and then upload it
 
-const sharp = require("sharp");
+import AWS from "aws-sdk";
+import sharp from "sharp";
 
-module.exports = async (
-    fileName,
-    key,
-    dimensions,
-    coldBucket,
-    resizedBucket,
-    S3
+export default async (
+    fileName: string,
+    key: string,
+    dimensions: { width: number; height: number },
+    coldBucket: string,
+    resizedBucket: string,
+    S3: AWS.S3
 ) => {
     const uploaded = await S3.getObject({
         Bucket: coldBucket,
         Key: fileName,
     }).promise();
 
-    const image = sharp(Buffer.from(uploaded.Body.toString()))
+    const image = sharp(Buffer.from(uploaded.Body?.toString() as string))
         .resize(dimensions.width, dimensions.height)
         .toFormat("jpg")
         .toBuffer();
@@ -32,7 +33,7 @@ module.exports = async (
             "Content-Type": "application/jpg",
             "Content-Disposition": `attachment; filename=${key}`,
         },
-        body: uploaded.Body.toString("base64"),
+        body: uploaded.Body?.toString("base64"),
         isBase64Encoded: true,
     };
 };
