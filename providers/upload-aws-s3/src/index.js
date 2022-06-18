@@ -3,7 +3,7 @@ const AWS = require("aws-sdk");
 module.exports = {
   init(config) {
     const S3 = new AWS.S3({
-      signatureVersion: "v4",
+      apiVersion: "2006-03-01",
       ...config,
     });
 
