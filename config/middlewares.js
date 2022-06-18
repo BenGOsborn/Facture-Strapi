@@ -1,5 +1,5 @@
 module.exports = ({ env }) => {
-    const imageHost = env("AWS_IMAGE_LOCATION").split("/")[2];
+    const imageHost = env("AWS_IMAGE_LOCATION", "").split("/")[2];
 
     return [
         "strapi::errors",
@@ -9,18 +9,8 @@ module.exports = ({ env }) => {
             config: {
                 contentSecurityPolicy: {
                     directives: {
-                        "script-src": [
-                            "'self'",
-                            "'unsafe-inline'",
-                            "cdn.jsdelivr.net",
-                        ],
-                        "img-src": [
-                            "'self'",
-                            "data:",
-                            "cdn.jsdelivr.net",
-                            "strapi.io",
-                            imageHost,
-                        ],
+                        "script-src": ["'self'", "'unsafe-inline'", "cdn.jsdelivr.net"],
+                        "img-src": ["'self'", "data:", "cdn.jsdelivr.net", "strapi.io", imageHost],
                     },
                 },
             },
