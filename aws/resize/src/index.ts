@@ -24,7 +24,7 @@ export const handler = async (event: APIGatewayEvent) => {
     const size = event.queryStringParameters?.size;
 
     if (!fileName) throw Error("No file name provided");
-    if (!size) return handleNoSize(fileName, COLD_BUCKET, S3);
+    if (!size) return await handleNoSize(fileName, COLD_BUCKET, S3);
 
     if (ALLOWED_DIMENSIONS.size > 0 && !ALLOWED_DIMENSIONS.has(size))
         return {
@@ -36,15 +36,11 @@ export const handler = async (event: APIGatewayEvent) => {
     const resizedKey = size + "." + fileName;
 
     try {
-        console.log("Error occurs in the handleResized");
-
-        return handleResized(resizedKey, RESIZED_BUCKET, S3);
+        return await handleResized(resizedKey, RESIZED_BUCKET, S3);
     } catch {
-        console.log("Error occurs in the handleResize");
-
         const split = size.split("x");
 
-        return handleResize(
+        return await handleResize(
             fileName,
             resizedKey,
             { width: parseInt(split[0]), height: parseInt(split[1]) },
