@@ -10,7 +10,7 @@ Resources:
             Runtime: nodejs16.x
             Architectures:
                 - x86_64
-        Metadata: # Manage esbuild properties
+        Metadata:
             BuildMethod: esbuild
             BuildProperties:
                 Minify: true
@@ -18,3 +18,6 @@ Resources:
                 Sourcemap: true
                 EntryPoints:
                     - src/index.ts
+                External:
+                    - "aws-sdk"
+                    - "sharp"
