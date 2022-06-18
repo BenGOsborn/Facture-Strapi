@@ -1,8 +1,6 @@
 // Return an unresized image from the bucket
 
-import AWS from "aws-sdk";
-
-export default async (fileName: string, coldBucket: string, S3: AWS.S3) => {
+module.exports = async (fileName, coldBucket, S3) => {
     const fileSplit = fileName.split(".");
     const fileExtension = fileSplit[fileSplit.length - 1];
 

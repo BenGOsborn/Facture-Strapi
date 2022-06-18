@@ -1,10 +1,6 @@
 {
     "name": "resize",
     "version": "1.0.0",
-    "main": "index.js",
-    "scripts": {
-        "build": "tsc && zip lambda.zip dist/* package.json node_modules/ -j"
-    },
     "dependencies": {
         "aws-sdk": "^2.1157.0",
         "sharp": "^0.30.6"
