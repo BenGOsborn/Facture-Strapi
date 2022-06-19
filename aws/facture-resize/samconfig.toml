@@ -1,0 +1,11 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "facture-resize"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1da1l1qv2u27h"
+s3_prefix = "facture-resize"
+region = "us-east-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+image_repositories = ["FactureResizeFunction=641490273710.dkr.ecr.us-east-1.amazonaws.com/facture"]
