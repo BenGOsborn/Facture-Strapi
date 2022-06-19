@@ -10,5 +10,5 @@ Resources:
                 - x86_64
         Metadata:
             DockerTag: nodejs16.x-v1
-            DockerContext: ./facture-resize
+            DockerContext: .
             Dockerfile: Dockerfile
