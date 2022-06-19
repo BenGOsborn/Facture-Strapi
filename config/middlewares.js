@@ -10,7 +10,7 @@ module.exports = ({ env }) => {
                 contentSecurityPolicy: {
                     directives: {
                         "script-src": ["'self'", "'unsafe-inline'", "cdn.jsdelivr.net"],
-                        "img-src": ["'self'", "data:", "cdn.jsdelivr.net", "strapi.io", imageHost],
+                        "img-src": ["'self'", "data:", "cdn.jsdelivr.net", "strapi.io", "dl.airtable.com", imageHost],
                     },
                 },
             },
