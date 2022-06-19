@@ -1,7 +1,6 @@
 FROM public.ecr.aws/lambda/nodejs:16
 
-COPY src/ ./src/
-COPY *.json ./
+COPY . .
 
 RUN npm ci --production
 
