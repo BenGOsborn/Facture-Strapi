@@ -16,7 +16,8 @@
         "linkedin",
         "instagram",
         "youtube"
-      ]
+      ],
+      "required": true
     },
     "link": {
       "type": "string",
