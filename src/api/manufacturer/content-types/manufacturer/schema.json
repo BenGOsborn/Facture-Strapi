@@ -115,6 +115,11 @@
     },
     "slogan": {
       "type": "string"
+    },
+    "fax": {
+      "type": "component",
+      "repeatable": true,
+      "component": "manufacturer.fax"
     }
   }
 }

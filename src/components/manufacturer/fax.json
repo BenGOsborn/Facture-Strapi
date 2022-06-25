@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_manufacturer_faxes",
+  "info": {
+    "displayName": "Fax",
+    "icon": "fax"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "fax": {
+      "type": "string",
+      "required": true
+    }
+  }
+}
