@@ -13,6 +13,8 @@
 
 const algoliasearch = require("algoliasearch");
 
+const { parseLocation } = require("./misc");
+
 module.exports = {
     /**
      * Initiates the algolia search provider
@@ -21,8 +23,6 @@ module.exports = {
      * @returns {Provider} Algolia search provider
      */
     async init(pluginConfig) {
-        console.log("THE PLUGIN HAS LOADED YES");
-
         const {
             providerOptions: { applicationId = "", apiKey = "" },
             debug,
@@ -58,7 +58,7 @@ module.exports = {
             create({ indexName, data, id }) {
                 return client
                     .initIndex(indexName)
-                    .saveObject({ objectID: id || data.id, ...data })
+                    .saveObject({ objectID: id || data.id, ...data, ...parseLocation(data) })
                     .then(() => debug && strapi.log.debug(`Algolia provider: Created entry with objectID '${id || data.id}' on index '${indexName}'.`))
                     .catch((error) => {
                         throw new Error(`Algolia provider: ${error.message}`);
@@ -77,7 +77,7 @@ module.exports = {
             update({ indexName, data, id }) {
                 return client
                     .initIndex(indexName)
-                    .partialUpdateObject({ objectID: id || data.id, ...data }, { createIfNotExists: true })
+                    .partialUpdateObject({ objectID: id || data.id, ...data, ...parseLocation(data) }, { createIfNotExists: true })
                     .then(() => debug && strapi.log.debug(`Algolia provider: Updated entry with objectID '${id || data.id}' on index '${indexName}'.`))
                     .catch((error) => {
                         throw new Error(`Algolia provider: ${error.message}`);
@@ -111,7 +111,7 @@ module.exports = {
              * @returns {Promise<algoliasearch.ChunkedBatchResponse>} Promise with chunked task
              */
             createMany({ indexName, data }) {
-                data = data.map((entry) => ({ objectID: entry.id, ...entry }));
+                data = data.map((entry) => ({ objectID: entry.id, ...entry, ...parseLocation(entry) }));
 
                 return client
                     .initIndex(indexName)
@@ -131,7 +131,7 @@ module.exports = {
              * @returns {Promise<algoliasearch.ChunkedBatchResponse>} Promise with chunked task
              */
             updateMany({ indexName, data }) {
-                data = data.map((entry) => ({ objectID: entry.id, ...entry }));
+                data = data.map((entry) => ({ objectID: entry.id, ...entry, ...parseLocation(entry) }));
 
                 return client
                     .initIndex(indexName)
