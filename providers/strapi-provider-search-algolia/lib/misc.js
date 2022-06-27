@@ -1,8 +1,7 @@
 module.exports.parseLocation = function parseLocation(data) {
-    let location = [];
-    if (data.location) location = data.location.map((entry) => ({ lat: entry.latitude, lng: entry.longitude }));
+    if (!data.location) return {};
 
     return {
-        _geoloc: location,
+        _geoloc: data.location.map((entry) => ({ lat: entry.latitude, lng: entry.longitude })),
     };
 };
