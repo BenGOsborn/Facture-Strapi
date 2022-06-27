@@ -1,0 +1,43 @@
+{
+  "name": "@mattie-bundle/strapi-provider-search-algolia",
+  "version": "1.0.0-alpha.3",
+  "description": "Algolia provider for strapi search plugin",
+  "strapi": {
+    "isProvider": true
+  },
+  "directories": {
+    "lib": "./lib"
+  },
+  "main": "./lib",
+  "dependencies": {
+    "algoliasearch": "^4.9.1"
+  },
+  "peerDependencies": {
+    "@mattie-bundle/strapi-plugin-search": "^1.0.0-alpha.2"
+  },
+  "keywords": [
+    "algolia",
+    "algoliasearch",
+    "strapi",
+    "search",
+    "provider"
+  ],
+  "homepage": "https://strapi-plugin-search.mattiebelt.com",
+  "repository": {
+    "type": "git",
+    "url": "github:MattieBelt/mattie-strapi-bundle",
+    "directory": "packages/search/strapi-provider-search-algolia"
+  },
+  "bugs": "https://github.com/MattieBelt/mattie-strapi-bundle/issues",
+  "author": {
+    "name": "Mattias Belt, van den",
+    "email": "mattiebelt@gmail.com",
+    "url": "https://github.com/MattieBelt"
+  },
+  "engines": {
+    "node": ">=12.x.x <=16.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "SEE LICENSE IN LICENSE",
+  "gitHead": "94de6b1415a61481bf50c21dc1d847a8e767d46a"
+}
