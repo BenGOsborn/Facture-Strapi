@@ -4,9 +4,12 @@ ENV NODE_ENV=production
 
 WORKDIR /usr/local/app
 
-COPY ./ ./
+COPY config config/
+COPY public ./public/
+COPY src ./src/
+COPY package* ./
 
-RUN npm install --production
+RUN npm ci
 
 RUN npm run build
 
