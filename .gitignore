@@ -113,9 +113,3 @@ exports
 *.cache
 build
 .strapi-updater.json
-
-############################
-# AWS SAM
-############################
-
-.aws-sam/
