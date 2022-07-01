@@ -5,11 +5,11 @@ ENV NODE_ENV=production
 WORKDIR /usr/local/app
 
 COPY config config/
-COPY database ./database/
-COPY providers ./providers/
-COPY public ./public/
-COPY src ./src/
-COPY package* ./
+COPY database database/
+COPY providers providers/
+COPY public public/
+COPY src src/
+COPY package*.json ./
 
 RUN npm ci
 
