@@ -14,14 +14,7 @@
   "attributes": {
     "initialEmail": {
       "type": "email",
-      "required": true,
-      "private": true
-    },
-    "priority": {
-      "type": "biginteger",
-      "required": true,
-      "min": "0",
-      "default": "0"
+      "required": true
     },
     "manufacturer": {
       "type": "relation",

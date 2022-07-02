@@ -1,5 +1,5 @@
 {
-    "name": "facture-strapi",
+    "name": "strapi",
     "private": true,
     "version": "1.0.0",
     "description": "A Strapi application",

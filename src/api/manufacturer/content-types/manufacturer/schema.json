@@ -125,7 +125,14 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::manufacturer-account.manufacturer-account",
+      "private": true,
       "mappedBy": "manufacturer"
+    },
+    "priority": {
+      "type": "biginteger",
+      "required": true,
+      "default": "0",
+      "min": "0"
     }
   }
 }
