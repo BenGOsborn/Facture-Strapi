@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "manufacturer_accounts",
+  "info": {
+    "singularName": "manufacturer-account",
+    "pluralName": "manufacturer-accounts",
+    "displayName": "ManufacturerAccount",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "initialEmail": {
+      "type": "email",
+      "required": true,
+      "private": true
+    },
+    "priority": {
+      "type": "biginteger",
+      "required": true,
+      "min": "0",
+      "default": "0"
+    },
+    "manufacturer": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::manufacturer.manufacturer",
+      "inversedBy": "manufacturer_account"
+    }
+  }
+}

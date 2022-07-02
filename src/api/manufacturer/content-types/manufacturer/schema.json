@@ -120,6 +120,12 @@
       "type": "component",
       "repeatable": true,
       "component": "manufacturer.fax"
+    },
+    "manufacturer_account": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::manufacturer-account.manufacturer-account",
+      "mappedBy": "manufacturer"
     }
   }
 }
