@@ -19,8 +19,7 @@
     "manufacturer": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::manufacturer.manufacturer",
-      "inversedBy": "manufacturer_account"
+      "target": "api::manufacturer.manufacturer"
     }
   }
 }
